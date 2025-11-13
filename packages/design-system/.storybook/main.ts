@@ -1,8 +1,12 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 
-import { dirname } from 'path';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+import checker from 'vite-plugin-checker';
 
 /**
  * This function is used to resolve the absolute path of a package.
@@ -22,6 +26,19 @@ const config: StorybookConfig = {
   framework: {
     name: getAbsolutePath('@storybook/react-vite'),
     options: {},
+  },
+  viteFinal: async (config, { configType }) => {
+    config.plugins = config.plugins ?? [];
+
+    config.plugins.push(
+      checker({
+        typescript: {
+          tsconfigPath: path.resolve(__dirname, '../tsconfig.json'),
+        },
+      }),
+    );
+
+    return config;
   },
 };
 export default config;
