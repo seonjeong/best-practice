@@ -21,8 +21,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint \"src/**/*.{ts,tsx}\" \".storybook/**/*.{ts,tsx}\"",
+    "lint:watch": "chokidar \"src/**/*.{ts,tsx}\" \".storybook/**/*.{ts,tsx}\" -c \"npm run lint\"",
     "storybook:dev": "storybook dev -p 6006",
-    "storybook": "concurrently -n LINT,SB \"npm run lint\" \"npm run storybook:dev\"",
+    "storybook": "concurrently -k -n LINT,SB \"npm run lint:watch\" \"npm run storybook:dev\"",
     "build-storybook": "storybook build"
   },
   "author": "",
