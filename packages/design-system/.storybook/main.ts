@@ -35,6 +35,9 @@ const config: StorybookConfig = {
         typescript: {
           tsconfigPath: path.resolve(__dirname, '../tsconfig.json'),
         },
+        eslint: {
+          lintCommand: 'eslint "src/**/*.{ts,tsx}" ".storybook/**/*.{ts,tsx}" --max-warnings=0',
+        },
       }),
     );
 
