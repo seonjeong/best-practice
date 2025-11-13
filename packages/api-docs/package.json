@@ -8,7 +8,9 @@
     "swagger-cli": "^4.0.4"
   },
   "scripts": {
+    "lint": "spectral lint openapi.yaml",
     "bundle": "swagger-cli bundle openapi.yaml -o dist/openapi.bundle.yaml -t yaml",
+    "check": "npm run lint && npm run bundle",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -1,0 +1,18 @@
+extends: ['spectral:oas']
+
+rules:
+  info-contact: off
+  license-url: off
+  tag-description: off
+  operation-summary: off
+  operation-description: warn
+
+  operation-operationId: warn
+  operation-tags: warn
+  operation-tag-defined: warn
+  operation-operationId-unique: warn
+
+  no-duplicate-operation-id: error
+  operation-parameters-unique: error
+  oas3-schema: error
+  no-eval-in-markdown: off
