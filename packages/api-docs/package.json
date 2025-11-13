@@ -8,6 +8,7 @@
     "swagger-cli": "^4.0.4"
   },
   "scripts": {
+    "bundle": "swagger-cli bundle openapi.yaml -o dist/openapi.bundle.yaml -t yaml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
