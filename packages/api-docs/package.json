@@ -15,7 +15,9 @@
   },
   "scripts": {
     "lint": "spectral lint openapi.yaml",
-    "bundle": "swagger-cli bundle openapi.yaml -o dist/openapi.bundle.yaml -t yaml",
+    "bundle:yaml": "swagger-cli bundle openapi.yaml -o dist/openapi.bundle.yaml -t yaml",
+    "bundle:json": "swagger-cli bundle openapi.yaml -o dist/openapi.bundle.json -t json",
+    "bundle": "npm run bundle:yaml && npm run bundle:json",
     "check": "npm run lint && npm run bundle",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
