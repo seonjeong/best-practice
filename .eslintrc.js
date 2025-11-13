@@ -5,7 +5,8 @@ module.exports = {
     project: ['./packages/design-system/tsconfig.json'],
     ecmaVersion: 'latest',
     sourceType: 'module',
-    ecmaFeatures: { jsx: true }
+    ecmaFeatures: { jsx: true },
+    tsconfigRootDir: __dirname,
   },
   settings: { react: { version: 'detect' } },
   extends: [
