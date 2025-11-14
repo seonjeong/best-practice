@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build:design-system": "npm run build -w @design-system/ui",
+    "build:workspace": "npm run build:design-system",
+    "build": "npm run build:workspace && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
