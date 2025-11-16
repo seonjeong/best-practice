@@ -1,8 +1,13 @@
 {
-  "name": "api-docs",
+  "name": "@api-docs/spec",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "devDependencies": {
     "@stoplight/spectral-cli": "^6.15.0",
@@ -17,7 +22,8 @@
     "lint": "spectral lint openapi.yaml",
     "bundle:yaml": "swagger-cli bundle openapi.yaml -o dist/openapi.bundle.yaml -t yaml",
     "bundle:json": "swagger-cli bundle openapi.yaml -o dist/openapi.bundle.json -t json",
-    "bundle": "npm run bundle:yaml && npm run bundle:json",
+    "bundle:index": "tsc --project tsconfig.json",
+    "bundle": "npm run bundle:yaml && npm run bundle:json && npm run bundle:index",
     "check": "npm run lint && npm run bundle",
     "ui": "node src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

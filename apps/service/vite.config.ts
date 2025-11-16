@@ -21,6 +21,9 @@ export default defineConfig(({ mode }) => {
         '@design-system': isDev
           ? path.resolve(__dirname, '../../packages/design-system/src')
           : '@design-system/ui',
+        '@api-docs': isDev
+          ? path.resolve(__dirname, '../../packages/api-docs/src')
+          : '@api-docs/spec',
       },
     },
   };

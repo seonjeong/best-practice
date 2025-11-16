@@ -26,7 +26,8 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@design-system": ["../../packages/design-system/src"]
+      "@design-system": ["../../packages/design-system/src"],
+      "@api-docs": ["../../packages/api-docs/src"]
     }
   },
   "include": ["src"]

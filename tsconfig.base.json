@@ -30,7 +30,8 @@
     "baseUrl": ".",
     "paths": {
       "@apps/*": ["apps/*"],
-      "@design-system/*": ["packages/design-system/src/*"]
+      "@design-system/*": ["packages/design-system/src/*"],
+      "@api-docs/*": ["packages/api-docs/src/*"]
     },
 
     /* === 타입 안전성 === */
