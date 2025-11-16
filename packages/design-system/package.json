@@ -36,7 +36,8 @@
     "build-storybook": "storybook build",
     "build:js": "vite build",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build": "npm run build:js && npm run build:types"
+    "build": "npm run build:js && npm run build:types",
+    "gc:component": "tsx ./.generate/component/index.ts $1"
   },
   "peerDependencies": {
     "react": "^18.0.0",
