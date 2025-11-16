@@ -1,6 +1,9 @@
-import React from 'react';
+import styles from './__COMPONENT_NAME__.module.scss';
 
-function __COMPONENT_NAME__(props) {
+import { Props } from './__COMPONENT_NAME__.types';
+
+function __COMPONENT_NAME__(props: Props) {
+  const {} = props;
   return null;
 }
 

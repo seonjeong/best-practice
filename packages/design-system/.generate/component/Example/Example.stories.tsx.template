@@ -1,0 +1,20 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+
+import { __COMPONENT_NAME__ } from './__COMPONENT_NAME__';
+
+const meta = {
+  title: '__COMPONENT_NAME__/__COMPONENT_NAME__',
+  component: __COMPONENT_NAME__,
+  parameters: {},
+  tags: ['autodocs'],
+  argTypes: {},
+  args: {},
+} satisfies Meta<typeof __COMPONENT_NAME__>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const __COMPONENT_NAME__Example: Story = {
+  args: {},
+};
