@@ -8,6 +8,6 @@
 
 import { fromOpenApi } from '@mswjs/source/open-api';
 
-import spec from '../../../../../packages/api-docs/dist/openapi.bundle.json';
+import { openapiSpec } from '@api-docs';
 
-export const handlers = await fromOpenApi(JSON.parse(JSON.stringify(spec)));
+export const handlers = await fromOpenApi(JSON.parse(JSON.stringify(openapiSpec)));
