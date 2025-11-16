@@ -1,0 +1,7 @@
+import React from 'react';
+
+function __COMPONENT_NAME__(props) {
+  return null;
+}
+
+export { __COMPONENT_NAME__ };

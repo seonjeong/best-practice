@@ -12,23 +12,18 @@ fs.mkdirSync(dir);
 const componentDir = path.resolve('./.generate/component', './Example');
 
 fs.readdir(componentDir, (err, filelist) => {
+  if (err) throw err;
   filelist.forEach(async (file) => {
-    let filename = '';
+    let filename = file.replace('.template', '').replace('Example', name);
 
-    if (file === 'index.ts') filename = file;
-    else filename = [name, ...file.split('.').slice(1)].join('.');
+    fs.readFile(path.resolve(componentDir, file), 'utf8', (readErr, raw) => {
+      if (readErr) throw readErr;
 
-    let content = '';
+      const content = raw.replace(/__COMPONENT_NAME__/g, name);
 
-    const extension = file.split('.')[file.split('.').length - 1];
-    if (extension !== 'scss') {
-      const { component } = await import(path.resolve(componentDir, file));
-
-      content = component(name);
-    }
-
-    fs.writeFile(`${dir}/${filename}`, content, (err) => {
-      if (err) throw err;
+      fs.writeFile(`${dir}/${filename}`, content, (err) => {
+        if (err) throw err;
+      });
     });
   });
 });
