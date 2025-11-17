@@ -1,11 +1,11 @@
 import { useLogin } from './useLogin';
 
 function Login() {
-  const { register } = useLogin();
+  const { register, onSubmit, errorModal } = useLogin();
 
   return (
     <>
-      <form onSubmit={() => {}} noValidate>
+      <form onSubmit={onSubmit} noValidate>
         <input id="email" type="email" autoComplete="email" {...register('email')} />
         <input
           id="password"
@@ -16,10 +16,9 @@ function Login() {
         <button type="submit">Login</button>
       </form>
 
-      <>
+      {errorModal.isOpen && (
         <div
           style={{
-            display: 'none',
             position: 'fixed',
             background: 'rgba(0,0,0,0.5)',
             color: '#fff',
@@ -29,10 +28,10 @@ function Login() {
             bottom: 0,
           }}
         >
-          <button onClick={() => {}}>close</button>
-          <p>error message</p>
+          <button onClick={errorModal.onClose}>close</button>
+          <p>{errorModal.message}</p>
         </div>
-      </>
+      )}
     </>
   );
 }
