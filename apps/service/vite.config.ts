@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     resolve: {
+      dedupe: ['react', 'react-dom'],
       alias: {
         '@design-system': isDev
           ? path.resolve(__dirname, '../../packages/design-system/src')
