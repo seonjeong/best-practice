@@ -1,0 +1,111 @@
+post:
+  summary: 로그인
+  description: 이메일과 비밀번호로 로그인 요청을 보냅니다.
+  operationId: postLogin
+  tags:
+    - login
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          # LoginRequest 스키마를 인라인으로 직접 정의
+          type: object
+          required:
+            - email
+            - password
+          properties:
+            email:
+              type: string
+              format: email
+            password:
+              type: string
+              format: password
+  responses:
+    '200':
+      description: 로그인 성공
+      content:
+        application/json:
+          schema:
+            # LoginSuccessResponse 스키마를 인라인으로 직접 정의
+            type: object
+            required:
+              - success
+              - data
+            properties:
+              success:
+                type: boolean
+                enum: [true]
+              data:
+                # LoginResponseData 스키마를 인라인으로 직접 정의
+                type: object
+                required:
+                  - accessToken
+                  - refreshToken
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+                  userId:
+                    type: string
+                    description: 사용자 식별자
+                  name:
+                    type: string
+                    description: 사용자 이름
+    '400':
+      description: 잘못된 요청 (validation 실패 등)
+      content:
+        application/json:
+          schema:
+            # ErrorResponse 스키마를 인라인으로 직접 정의
+            type: object
+            required:
+              - success
+              - timestamp
+              - path
+              - error
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              timestamp:
+                type: string
+                format: date-time
+              path:
+                type: string
+                description: 요청된 URL path
+              error:
+                description: 에러 메시지 또는 에러 상세 객체
+                oneOf:
+                  - type: string
+                  - type: object
+                    additionalProperties: true
+    '401':
+      description: 인증 실패 (이메일/비밀번호 불일치)
+      content:
+        application/json:
+          # 401 응답도 동일한 ErrorResponse를 인라인으로 복사
+          schema:
+            type: object
+            required:
+              - success
+              - timestamp
+              - path
+              - error
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              timestamp:
+                type: string
+                format: date-time
+              path:
+                type: string
+                description: 요청된 URL path
+              error:
+                description: 에러 메시지 또는 에러 상세 객체
+                oneOf:
+                  - type: string
+                  - type: object
+                    additionalProperties: true

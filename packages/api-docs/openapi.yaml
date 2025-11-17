@@ -9,6 +9,8 @@ info:
 tags:
   - name: health
     description: health check 관련 API
+  - name: login
+    description: 사용자 인증 및 로그인 관련 API
 
 servers:
   - url: /
@@ -16,3 +18,5 @@ servers:
 paths:
   /health:
     $ref: './paths/health.yaml'
+  /login:
+    $ref: './paths/login.yaml'
