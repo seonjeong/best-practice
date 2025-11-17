@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => {
         '@api-docs': isDev
           ? path.resolve(__dirname, '../../packages/api-docs/src')
           : '@api-docs/spec',
+        '@': path.resolve(__dirname, 'src'),
       },
     },
   };
