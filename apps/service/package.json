@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build:api-docs": "npm run bundle -w @api-docs/spec",
     "build:design-system": "npm run build -w @design-system/ui",
-    "build:workspace": "npm run build:design-system",
+    "build:workspace": "npm run build:api-docs && npm run build:design-system",
     "build:orval": "npm run build:api-docs && orval --config ./orval.config.ts",
-    "build": "npm run build:workspace && tsc -b && vite build",
+    "build:prev": "npm run build:workspace && tsc -b && npm run build:orval",
+    "build": "npm run build:prev && vite build",
+    "dev": "npm run build:prev && vite",
     "lint": "eslint .",
     "preview": "vite preview"
   },
