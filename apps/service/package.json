@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build:api-docs": "npm run bundle -w @api-docs/spec",
     "build:design-system": "npm run build -w @design-system/ui",
     "build:workspace": "npm run build:design-system",
+    "build:orval": "npm run build:api-docs && orval --config ./orval.config.ts",
     "build": "npm run build:workspace && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

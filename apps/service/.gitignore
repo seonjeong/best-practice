@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# for generated api wrapper, useQuery, model
+src/apis/generated/*
