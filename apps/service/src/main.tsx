@@ -5,6 +5,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import App from './App.tsx';
 
+import { ReactQueryProvider } from '@/providers';
+
 import { enableMocking } from './mocks/msw/browser';
 
 async function bootstrap() {
@@ -13,7 +15,9 @@ async function bootstrap() {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <Router>
-        <App />
+        <ReactQueryProvider>
+          <App />
+        </ReactQueryProvider>
       </Router>
     </StrictMode>,
   );
