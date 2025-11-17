@@ -1,14 +1,17 @@
+import { useLogin } from './useLogin';
+
 function Login() {
+  const { register } = useLogin();
+
   return (
     <>
       <form onSubmit={() => {}} noValidate>
-        <input id="email" type="email" autoComplete="email" value="" onChange={() => {}} />
+        <input id="email" type="email" autoComplete="email" {...register('email')} />
         <input
           id="password"
           type="password"
           autoComplete="current-password"
-          value=""
-          onChange={() => {}}
+          {...register('password')}
         />
         <button type="submit">Login</button>
       </form>
