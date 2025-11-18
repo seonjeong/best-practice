@@ -1,17 +1,13 @@
-import { useMutation } from '@tanstack/react-query';
-
-import { postLogin } from '@/apis/generated/api/login/login';
+import { usePostLogin } from '@/apis/generated/api/login/login';
 
 import type { LoginData } from './loginSchema';
 
 const useLoginAction = () => {
-  const mutation = useMutation({
-    mutationFn: async (values: LoginData) => postLogin(values),
-  });
+  const mutation = usePostLogin();
 
   const onValid = async (values: LoginData) => {
     try {
-      await mutation.mutate(values);
+      await mutation.mutate({ data: values });
     } catch (error) {
       console.error(error);
     }
