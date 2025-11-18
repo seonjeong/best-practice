@@ -19,7 +19,7 @@ const useLoginError = (props: Props) => {
   const [errorField, setErrorField] = useState<LoginDataFieldName | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
-  const handleCloseErrorModal = () => {
+  const onCloseErrorModal = () => {
     setIsErrorModalOpen(false);
 
     if (errorField) {
@@ -44,7 +44,7 @@ const useLoginError = (props: Props) => {
     errorModal: {
       message: errorMessage,
       isOpen: isErrorModalOpen,
-      onClose: handleCloseErrorModal,
+      onClose: onCloseErrorModal,
     },
     onInvalid,
   };
