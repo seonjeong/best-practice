@@ -10,6 +10,8 @@ type Props = {
   setFocus: (name: LoginDataFieldName) => void;
 };
 
+const DEFAULT_VALIDATION_ERROR_MESSAGE = '입력값 다시 확인해주세요';
+
 export type LoginErrorCode =
   | 'NETWORK'
   | 'UNKNOWN'
@@ -60,7 +62,7 @@ const useLoginError = (props: Props) => {
       | undefined;
 
     const firstErrorMessage =
-      (firstErrorField && formErrors[firstErrorField]?.message) || '입력값 다시 확인해주세요';
+      (firstErrorField && formErrors[firstErrorField]?.message) || DEFAULT_VALIDATION_ERROR_MESSAGE;
 
     onErrorMessage({ errorField: firstErrorField, errorMessage: firstErrorMessage });
   };
