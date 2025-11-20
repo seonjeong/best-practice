@@ -16,6 +16,10 @@ export default defineConfig({
       prettier: true,
       clean: true,
       override: {
+        mutator: {
+          path: 'src/apis/mutator/custom-instance.ts',
+          name: 'customInstance',
+        },
         query: {
           useQuery: true,
           useMutation: true,
