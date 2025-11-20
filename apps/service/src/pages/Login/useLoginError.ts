@@ -27,6 +27,18 @@ const useLoginError = (props: Props) => {
     }
   };
 
+  const onErrorMessage = ({
+    errorField,
+    errorMessage,
+  }: {
+    errorField: LoginDataFieldName | undefined;
+    errorMessage: string;
+  }) => {
+    setErrorField(errorField ?? null);
+    setErrorMessage(errorMessage);
+    setIsErrorModalOpen(true);
+  };
+
   const onInvalid: SubmitErrorHandler<LoginData> = (formErrors) => {
     const firstErrorField = fieldOrder.find((fieldName) => formErrors[fieldName]) as
       | LoginDataFieldName
@@ -35,9 +47,7 @@ const useLoginError = (props: Props) => {
     const firstErrorMessage =
       (firstErrorField && formErrors[firstErrorField]?.message) || '입력값 다시 확인해주세요';
 
-    setErrorField(firstErrorField ?? null);
-    setErrorMessage(firstErrorMessage);
-    setIsErrorModalOpen(true);
+    onErrorMessage({ errorField: firstErrorField, errorMessage: firstErrorMessage });
   };
 
   return {
