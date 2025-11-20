@@ -1,6 +1,9 @@
-import type { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+import type { AxiosError, AxiosResponse } from 'axios';
 
 import { usePostLogin } from '@/apis/generated/api/login/login';
+import type { PostLogin200 } from '@/apis/generated/model';
 
 import type { LoginData } from './loginSchema';
 
@@ -15,7 +18,13 @@ const isAxiosError = <T = unknown>(error: unknown): error is AxiosError<T> => {
 };
 
 const useLoginAction = ({ onServerError }: Props) => {
-  const onSuccess = () => {};
+  const navigate = useNavigate();
+
+  const onSuccess = async (data: AxiosResponse<PostLogin200>) => {
+    localStorage.setItem('accessToken', data.data.data.accessToken);
+
+    navigate('/');
+  };
   const onError = (error: unknown) => {
     if (!isAxiosError(error)) {
       const code: LoginErrorCode = 'UNKNOWN';
