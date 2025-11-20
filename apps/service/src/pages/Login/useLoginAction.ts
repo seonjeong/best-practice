@@ -2,15 +2,25 @@ import { usePostLogin } from '@/apis/generated/api/login/login';
 
 import type { LoginData } from './loginSchema';
 
-const useLoginAction = () => {
-  const mutation = usePostLogin();
+interface Props {
+  onServerError: (error: unknown) => void;
+}
+
+const useLoginAction = ({ onServerError }: Props) => {
+  const onSuccess = () => {};
+  const onError = (error: unknown) => {
+    onServerError(error);
+  };
+
+  const mutation = usePostLogin({
+    mutation: {
+      onSuccess,
+      onError,
+    },
+  });
 
   const onValid = async (values: LoginData) => {
-    try {
-      await mutation.mutate({ data: values });
-    } catch (error) {
-      console.error(error);
-    }
+    await mutation.mutate({ data: values });
   };
   return { onValid };
 };

@@ -4,8 +4,8 @@ import { useLoginAction } from './useLoginAction';
 
 const useLogin = () => {
   const { register, handleSubmit, setFocus } = useLoginForm();
-  const { onValid } = useLoginAction();
-  const { onInvalid, errorModal } = useLoginError({ setFocus });
+  const { onInvalid, onServerError, errorModal } = useLoginError({ setFocus });
+  const { onValid } = useLoginAction({ onServerError });
 
   const onSubmit = handleSubmit(onValid, onInvalid);
 
