@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import type { ReactNode } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from '@/contexts';
 
@@ -11,6 +11,7 @@ type Props = {
 
 const ProtectedRoute = ({ children }: Props) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { isAuthenticated } = useAuthContext();
 
@@ -18,9 +19,10 @@ const ProtectedRoute = ({ children }: Props) => {
     if (!isAuthenticated) {
       navigate('/login', {
         replace: true,
+        state: { from: location },
       });
     }
-  }, [navigate, isAuthenticated]);
+  }, [navigate, location, isAuthenticated]);
 
   if (!isAuthenticated) return null;
 

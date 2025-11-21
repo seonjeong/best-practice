@@ -1,9 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import type { AxiosError } from 'axios';
 
 import { usePostLogin } from '@/apis/generated/api/login/login';
 import type { PostLogin200 } from '@/apis/generated/model';
+
+import { useAuthContext } from '@/contexts';
 
 import type { LoginData } from './loginSchema';
 
@@ -19,11 +21,15 @@ const isAxiosError = <T = unknown>(error: unknown): error is AxiosError<T> => {
 
 const useLoginAction = ({ onServerError }: Props) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const { login } = useAuthContext();
 
   const onSuccess = async (data: PostLogin200) => {
-    localStorage.setItem('accessToken', data.data.accessToken);
+    login({ accessToken: data.data.accessToken });
 
-    navigate('/');
+    const from = location.state?.from?.pathname || '/';
+    navigate(from);
   };
   const onError = (error: unknown) => {
     if (!isAxiosError(error)) {
