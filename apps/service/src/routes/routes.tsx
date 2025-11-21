@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import { ROUTES } from '@/constants/routes';
 
-import { Login, Home } from '@/pages';
+import { Login, Home, Posts } from '@/pages';
 
 interface Route {
   path: string;
@@ -17,6 +17,10 @@ const routes: Route[] = [
   {
     path: ROUTES.LOGIN,
     element: <Login />,
+  },
+  {
+    path: ROUTES.POSTS,
+    element: <Posts />,
   },
 ];
 
