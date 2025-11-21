@@ -33,7 +33,7 @@ const refreshService = async (): Promise<string | null> => {
       tokenStorage.set(accessToken);
       return accessToken;
     } catch {
-      tokenStorage.delete();
+      tokenStorage.remove();
       return null;
     } finally {
       refreshPromise = null;

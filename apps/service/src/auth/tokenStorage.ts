@@ -5,7 +5,7 @@ export const tokenStorage = {
   set(accessToken: string) {
     localStorage.setItem('accessToken', accessToken);
   },
-  delete() {
-    localStorage.delete('accessToken');
+  remove() {
+    localStorage.removeItem('accessToken');
   },
 };
