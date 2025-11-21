@@ -7,9 +7,12 @@ import App from './App.tsx';
 
 import { ReactQueryProvider } from '@/providers';
 
+import { tokenStorage } from '@/auth/tokenStorage';
 import { enableMocking } from './mocks/msw/browser';
 
 async function bootstrap() {
+  tokenStorage.load();
+
   await enableMocking();
 
   createRoot(document.getElementById('root')!).render(
