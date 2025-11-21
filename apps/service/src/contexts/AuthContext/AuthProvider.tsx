@@ -10,7 +10,9 @@ type Props = {
 };
 
 export const AuthProvider = ({ children }: Props) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() =>
+    Boolean(tokenStorage.get()),
+  );
 
   const login = useCallback(({ accessToken }: { accessToken: string }) => {
     tokenStorage.set(accessToken);
