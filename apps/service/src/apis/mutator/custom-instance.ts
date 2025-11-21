@@ -6,6 +6,8 @@ import type {
   InternalAxiosRequestConfig,
 } from 'axios';
 
+import { tokenStorage } from '../../auth/tokenStorage';
+
 export type OrvalCompatibleAxiosConfig = Omit<AxiosRequestConfig, 'signal'> & {
   signal?: AbortSignal | GenericAbortSignal | undefined;
 };
@@ -28,10 +30,10 @@ const refreshService = async (): Promise<string | null> => {
       const res = await postRefresh();
 
       const { accessToken } = res.data;
-      localStorage.setItem('accessToken', accessToken);
+      tokenStorage.set(accessToken);
       return accessToken;
     } catch {
-      localStorage.delete('accessToken');
+      tokenStorage.delete();
       return null;
     } finally {
       refreshPromise = null;
@@ -43,7 +45,7 @@ const refreshService = async (): Promise<string | null> => {
 
 AXIOS_INSTANCE.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('accessToken');
+    const token = tokenStorage.get();
 
     if (token) {
       if (!config?.headers?.Authorization) {
