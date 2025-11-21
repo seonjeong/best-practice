@@ -75,6 +75,7 @@ AXIOS_INSTANCE.interceptors.response.use(
       const newToken = await refreshService();
 
       if (!newToken) {
+        window.location.href = `/login`;
         return Promise.reject(error);
       }
 
