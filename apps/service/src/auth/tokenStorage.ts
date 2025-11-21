@@ -1,11 +1,13 @@
+const STORAGE_KEY = 'accessToken';
+
 export const tokenStorage = {
   get() {
-    return localStorage.getItem('accessToken');
+    return localStorage.getItem(STORAGE_KEY);
   },
   set(accessToken: string) {
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem(STORAGE_KEY, accessToken);
   },
   remove() {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem(STORAGE_KEY);
   },
 };
