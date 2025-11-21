@@ -11,6 +11,8 @@ tags:
     description: health check 관련 API
   - name: login
     description: 사용자 인증 및 로그인 관련 API
+  - name: refresh
+    description: refreshToken 으로 재인증 accessToken 시도
 
 servers:
   - url: /
@@ -20,3 +22,5 @@ paths:
     $ref: './paths/health.yaml'
   /login:
     $ref: './paths/login.yaml'
+  /refresh:
+    $ref: './paths/refresh.yaml'
