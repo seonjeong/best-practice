@@ -18,6 +18,29 @@ const postRefresh = async () => {
   return AXIOS_INSTANCE({ method: 'POST', url: '/refresh' });
 };
 
+let refreshPromise: Promise<string | null> | null = null;
+
+const refreshService = async (): Promise<string | null> => {
+  if (refreshPromise) return refreshPromise;
+
+  refreshPromise = (async () => {
+    try {
+      const res = await postRefresh();
+
+      const { accessToken } = res.data;
+      localStorage.setItem('accessToken', accessToken);
+      return accessToken;
+    } catch {
+      localStorage.delete('accessToken');
+      return null;
+    } finally {
+      refreshPromise = null;
+    }
+  })();
+
+  return refreshPromise;
+};
+
 AXIOS_INSTANCE.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem('accessToken');
@@ -47,18 +70,14 @@ AXIOS_INSTANCE.interceptors.response.use(
     if (error.response?.status === 401 && !originalConfig._retry) {
       originalConfig._retry = true;
 
-      const res = await postRefresh();
+      const newToken = await refreshService();
 
-      const { accessToken } = res.data;
-
-      if (!accessToken) {
+      if (!newToken) {
         return Promise.reject(error);
       }
 
-      localStorage.setItem('accessToken', accessToken);
-
       originalConfig.headers = originalConfig.headers ?? {};
-      originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+      originalConfig.headers.Authorization = `Bearer ${newToken}`;
 
       return AXIOS_INSTANCE(originalConfig);
     }
