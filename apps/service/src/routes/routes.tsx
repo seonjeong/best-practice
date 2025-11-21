@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import { ProtectedRoute } from '@/auth/ProtectedRoute';
+
 import { ROUTES } from '@/constants/routes';
 
 import { Login, Home, Posts } from '@/pages';
@@ -20,7 +22,11 @@ const routes: Route[] = [
   },
   {
     path: ROUTES.POSTS,
-    element: <Posts />,
+    element: (
+      <ProtectedRoute>
+        <Posts />
+      </ProtectedRoute>
+    ),
   },
 ];
 
