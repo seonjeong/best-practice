@@ -7,6 +7,7 @@ import type {
 } from 'axios';
 
 import { tokenStorage } from '../../auth/tokenStorage';
+import { isRefreshExcluded } from '@/auth/refreshExclusionList';
 
 export type OrvalCompatibleAxiosConfig = Omit<AxiosRequestConfig, 'signal'> & {
   signal?: AbortSignal | GenericAbortSignal | undefined;
@@ -69,7 +70,9 @@ AXIOS_INSTANCE.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    if (error.response?.status === 401 && !originalConfig._retry) {
+    const isAuthUrl = isRefreshExcluded(originalConfig.url || '');
+
+    if (error.response?.status === 401 && !originalConfig._retry && !isAuthUrl) {
       originalConfig._retry = true;
 
       const newToken = await refreshService();
