@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     resolve: {
+      dedupe: ['react', 'react-dom'],
       alias: {
         '@design-system': isDev
           ? path.resolve(__dirname, '../../packages/design-system/src')
@@ -24,6 +25,7 @@ export default defineConfig(({ mode }) => {
         '@api-docs': isDev
           ? path.resolve(__dirname, '../../packages/api-docs/src')
           : '@api-docs/spec',
+        '@': path.resolve(__dirname, 'src'),
       },
     },
   };

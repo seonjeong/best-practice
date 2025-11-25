@@ -27,7 +27,8 @@
     "baseUrl": ".",
     "paths": {
       "@design-system": ["../../packages/design-system/src"],
-      "@api-docs": ["../../packages/api-docs/src"]
+      "@api-docs": ["../../packages/api-docs/src"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"]

@@ -8,7 +8,17 @@ module.exports = {
     ecmaFeatures: { jsx: true },
     tsconfigRootDir: __dirname,
   },
-  settings: { react: { version: 'detect' } },
+  settings: { 
+    react: { version: 'detect' },
+    'import/resolver': {
+      typescript: {
+        project: './tsconfig.json'
+      },
+      node: {
+        extensions: ['.js', '.ts', '.tsx'],
+      },
+    },
+  },
   extends: [
     'airbnb',
     'airbnb-typescript',

@@ -1,0 +1,168 @@
+post:
+  summary: Refresh access token
+  description: >
+    만료되었거나 만료가 임박한 액세스 토큰을 갱신합니다.
+    클라이언트는 httpOnly 쿠키에 저장된 refreshToken을 자동으로 전송합니다.
+  tags:
+    - refresh
+  # body 없음: 쿠키 기반
+  responses:
+    '200':
+      description: 새 액세스 토큰 발급 성공
+      headers:
+        Set-Cookie:
+          description: >
+            갱신된 refreshToken이 담긴 httpOnly 쿠키.
+            구현에 따라 기존 토큰을 재사용할 수도 있습니다.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            type: object
+            description: SuccessResponse<{ accessToken, tokenType, expiresIn }>
+            properties:
+              success:
+                type: boolean
+                enum: [true]
+              data:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    description: 새로 발급된 액세스 토큰(JWT)
+                  tokenType:
+                    type: string
+                    description: 토큰 타입 (일반적으로 'Bearer')
+                    example: Bearer
+                  expiresIn:
+                    type: integer
+                    format: int64
+                    description: 액세스 토큰 만료까지 남은 시간(초)
+                    example: 3600
+                required:
+                  - accessToken
+                  - tokenType
+                  - expiresIn
+                additionalProperties: false
+            required:
+              - success
+              - data
+            additionalProperties: false
+          examples:
+            default:
+              summary: 액세스 토큰 갱신 성공
+              value:
+                success: true
+                data:
+                  accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+                  tokenType: 'Bearer'
+                  expiresIn: 3600
+
+    '400':
+      description: 잘못된 요청 형식 (일반적으로는 거의 사용되지 않음)
+      content:
+        application/json:
+          schema:
+            type: object
+            description: ErrorResponse
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              timestamp:
+                type: string
+                format: date-time
+              path:
+                type: string
+              error:
+                oneOf:
+                  - type: string
+                  - type: object
+                    additionalProperties: {}
+            required:
+              - success
+              - timestamp
+              - path
+              - error
+            additionalProperties: false
+          examples:
+            badRequest:
+              summary: 기타 잘못된 요청
+              value:
+                success: false
+                timestamp: '2025-11-20T09:00:00Z'
+                path: '/auth/refresh'
+                error: 'Bad request'
+
+    '401':
+      description: 유효하지 않거나 만료된 리프레시 토큰 (쿠키 기준)
+      content:
+        application/json:
+          schema:
+            type: object
+            description: ErrorResponse
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              timestamp:
+                type: string
+                format: date-time
+              path:
+                type: string
+              error:
+                oneOf:
+                  - type: string
+                  - type: object
+                    additionalProperties: {}
+            required:
+              - success
+              - timestamp
+              - path
+              - error
+            additionalProperties: false
+          examples:
+            invalidToken:
+              summary: 만료된 리프레시 토큰
+              value:
+                success: false
+                timestamp: '2025-11-20T09:05:00Z'
+                path: '/auth/refresh'
+                error: 'Invalid or expired refresh token'
+
+    '500':
+      description: 서버 내부 오류
+      content:
+        application/json:
+          schema:
+            type: object
+            description: ErrorResponse
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              timestamp:
+                type: string
+                format: date-time
+              path:
+                type: string
+              error:
+                oneOf:
+                  - type: string
+                  - type: object
+                    additionalProperties: {}
+            required:
+              - success
+              - timestamp
+              - path
+              - error
+            additionalProperties: false
+          examples:
+            serverError:
+              summary: 서버 오류
+              value:
+                success: false
+                timestamp: '2025-11-20T09:10:00Z'
+                path: '/auth/refresh'
+                error: 'Internal Server Error'
