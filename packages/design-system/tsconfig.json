@@ -1,0 +1,7 @@
+{
+  "extends": "../../apps/service/tsconfig.app.json",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  },
+  "include": ["src", ".storybook", ".generate"]
+}

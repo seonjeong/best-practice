@@ -1,0 +1,18 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: project API docs
+  description: project API docs
+  license:
+    name: project
+
+tags:
+  - name: health
+    description: health check 관련 API
+
+servers:
+  - url: /
+
+paths:
+  /health:
+    $ref: './paths/health.yaml'

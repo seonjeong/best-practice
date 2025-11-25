@@ -1,0 +1,16 @@
+get:
+  operationId: getHealth
+  tags:
+    - health
+  description: health
+
+  responses:
+    '200':
+      description: health
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean

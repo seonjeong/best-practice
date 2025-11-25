@@ -1,0 +1,16 @@
+
+################
+# <type>(<scope>): <title>
+
+# feat(): 기능
+# fix(): 버그 수정
+# refactor(): 리팩토링
+# chore(): 개발 환경 설정
+# style(): prettier, eslint
+# test(): 테스트 코드 작성 및 수정, 테스트 코드 오류 수정
+# docs(): 문서 ex) README.md
+
+# - 본문에 구체적 내용 작성
+# - "-" 를 붙여서 작성
+
+# footer를 아랫줄에 작성 (이슈 번호 추가)

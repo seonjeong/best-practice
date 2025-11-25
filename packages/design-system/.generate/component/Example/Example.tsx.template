@@ -1,0 +1,10 @@
+import styles from './__COMPONENT_NAME__.module.scss';
+
+import { Props } from './__COMPONENT_NAME__.types';
+
+function __COMPONENT_NAME__(props: Props) {
+  const {} = props;
+  return null;
+}
+
+export { __COMPONENT_NAME__ };

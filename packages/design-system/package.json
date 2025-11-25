@@ -1,0 +1,48 @@
+{
+  "name": "@design-system/ui",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@chromatic-com/storybook": "^4.1.2",
+    "@storybook/addon-a11y": "^10.0.7",
+    "@storybook/addon-docs": "^10.0.7",
+    "@storybook/addon-vitest": "^10.0.7",
+    "@storybook/react-vite": "^10.0.7",
+    "@vitest/browser-playwright": "^4.0.8",
+    "@vitest/coverage-v8": "^4.0.8",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.2.1",
+    "eslint-plugin-storybook": "^10.0.7",
+    "playwright": "^1.56.1",
+    "sass": "^1.94.0",
+    "storybook": "^10.0.7",
+    "vite": "^7.2.2",
+    "vite-plugin-checker": "^0.11.0",
+    "vitest": "^4.0.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" \".storybook/**/*.{ts,tsx}\"",
+    "lint:watch": "chokidar \"src/**/*.{ts,tsx}\" \".storybook/**/*.{ts,tsx}\" -c \"npm run lint\"",
+    "storybook:dev": "storybook dev -p 6006",
+    "storybook": "concurrently -k -n LINT,SB \"npm run lint:watch\" \"npm run storybook:dev\"",
+    "build-storybook": "storybook build",
+    "build:js": "vite build",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build": "npm run build:js && npm run build:types",
+    "gc:component": "tsx ./.generate/component/index.ts $1"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
